@@ -1,0 +1,31 @@
+{
+  "name": "portafolio-daniel-acosta",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "start": "python3 -m http.server 8080",
+    "build": "echo \"Building portfolio...\" && echo \"Portfolio ready for deployment!\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "portfolio",
+    "web-developer",
+    "gsap",
+    "tailwindcss",
+    "frontend"
+  ],
+  "author": "Daniel Acosta",
+  "license": "MIT",
+  "description": "Portafolio personal de Daniel Acosta - Full Stack Developer. Construido con TailwindCSS y GSAP para animaciones fluidas.",
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "prismjs": "^1.30.0",
+    "tailwindcss": "^4.1.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielacosta/portafolio.git"
+  },
+  "homepage": "https://danielacosta.dev"
+}

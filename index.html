@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Acosta - Full Stack Developer</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/dacosta-dev-ico.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/dacosta-dev-ico.png">
+    <link rel="apple-touch-icon" href="./assets/img/dacosta-dev-ico.png">
+    <link rel="shortcut icon" href="./assets/img/dacosta-dev-ico.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+     <!-- PrismJS CSS -->
+    <link href="node_modules/prismjs/themes/prism-tomorrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'terminal-green': '#58ba59',
+                        'terminal-bg': '#0d1117',
+                        'terminal-gray': '#21262d'
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Fira Code', 'Monaco', 'Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-terminal-bg text-white font-mono overflow-x-hidden">
+
+    
+    <!-- Header Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-terminal-bg/90 backdrop-blur-sm border-b border-terminal-gray">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center opacity-0" id="logo">
+                    <img src="./assets/img/dacosta-dev.png" alt="Dacosta.dev" class="h-10 md:h-12 w-auto">
+                </div>
+                <ul class="hidden md:flex space-x-8 opacity-0" id="nav-links">
+                    <li><a href="#inicio" class="text-terminal-green hover:text-white transition-colors duration-300">INICIO</a></li>
+                    <li><a href="#about" class="text-gray-400 hover:text-terminal-green transition-colors duration-300">QUIEN SOY</a></li>
+                    <li><a href="#projects" class="text-gray-400 hover:text-terminal-green transition-colors duration-300">PROYECTOS</a></li>
+                    <li><a href="#contact" class="text-gray-400 hover:text-terminal-green transition-colors duration-300">CONTACTO</a></li>
+                </ul>
+                
+                <!-- Mobile Icons Container -->
+                <div class="flex items-center space-x-3 md:hidden" id="mobile-icons-container">
+                    <!-- Audio button will be inserted here dynamically -->
+                    <button id="mobile-menu-btn" class="text-terminal-green hover:text-white transition-colors duration-300 relative z-50">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Desktop Audio Button Container -->
+                <div class="hidden md:block" id="desktop-icons-container">
+                    <!-- Audio button for desktop will be inserted here -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Sidemenu Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden">
+    </div>
+
+    <!-- Mobile Sidemenu -->
+    <nav id="mobile-sidemenu" class="fixed top-0 right-0 h-full w-4/5 bg-terminal-bg border-l border-terminal-green z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <div class="flex flex-col h-full">
+            <!-- Menu Header -->
+            <div class="flex items-center justify-between p-6 border-b border-terminal-gray">
+                <div class="text-terminal-green font-bold text-xl">
+                    <span class="text-terminal-green">$ </span>
+                    <span class="text-yellow-400">menu --mobile</span>
+                </div>
+            </div>
+            
+            <!-- Menu Links -->
+            <div class="flex-1 px-6 py-8">
+                <ul class="space-y-6">
+                    <li>
+                        <a href="#inicio" class="mobile-menu-link flex items-center space-x-3 text-terminal-green text-lg hover:text-white transition-colors duration-300">
+                            <span class="text-terminal-green">></span>
+                            <span>INICIO</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#about" class="mobile-menu-link flex items-center space-x-3 text-gray-400 text-lg hover:text-terminal-green transition-colors duration-300">
+                            <span class="text-terminal-green">></span>
+                            <span>QUIEN SOY</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#projects" class="mobile-menu-link flex items-center space-x-3 text-gray-400 text-lg hover:text-terminal-green transition-colors duration-300">
+                            <span class="text-terminal-green">></span>
+                            <span>PROYECTOS</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contact" class="mobile-menu-link flex items-center space-x-3 text-gray-400 text-lg hover:text-terminal-green transition-colors duration-300">
+                            <span class="text-terminal-green">></span>
+                            <span>CONTACTO</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Menu Footer -->
+            <div class="p-6 border-t border-terminal-gray">
+                <div class="text-terminal-green text-sm">
+                    <span class="text-terminal-green">$ </span>
+                    <span class="text-yellow-400">exit</span>
+                    <span class="text-gray-400"> # Toca fuera para cerrar</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="min-h-screen flex items-center">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left Side - Terminal Style Content -->
+                <div class="space-y-6">
+                    <div class="text-4xl sm:text-6xl md:text-8xl font-bold opacity-0" id="hero-name">
+                        <div class="text-gray-300">DANIEL</div>
+                        <div class="text-gray-300">ACOSTA</div>
+                    </div>
+                    
+                    <div class="space-y-4 text-lg">
+                        <div class="opacity-0" id="whoami">
+                            <span class="text-terminal-green">$ </span>
+                            <span class="text-yellow-400">whoami</span>
+                        </div>
+                        <div class="opacity-0" id="role">
+                            <span class="text-terminal-green">> </span>
+                            <span>Full Stack Developer</span>
+                        </div>
+                        
+                        <div class="opacity-0" id="cat-about">
+                            <span class="text-terminal-green">$ </span>
+                            <span class="text-yellow-400">cat about.txt</span>
+                        </div>
+                        <div class="opacity-0 space-y-2" id="about-content">
+                            <div><span class="text-terminal-green">> </span>Desarrollador apasionado por crear experiencias digitales Especializado en tecnologías y arquitecturas escalables</div>
+                        </div>
+                        
+                        <div class="opacity-0" id="ls-skills">
+                            <span class="text-terminal-green">$ </span>
+                            <span class="text-yellow-400">ls skills/</span>
+                        </div>
+                        <div class="opacity-0" id="skills-content">
+                            <span class="text-terminal-green">> </span>
+                            <span>Frontend/ Backend/ DevOps/ Mobile/</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Profile Image -->
+                <div class="flex justify-center md:justify-end terminal-window flex-col" >
+                    <div class="bg-terminal-bg rounded-lg px-4 py-2 header-terminal">
+                            <span class="text-terminal-green">● </span>
+                            <span class="text-sm">user@dacosta.dev:~$</span>
+                            <span class="inline-block w-2 h-5 align-middle bg-terminal-green animate-blink-cursor"></span>
+                    </div>
+                    <div class="relative opacity-0 px-4 md:px-8 py-4 md:py-8 flex justify-center" id="profile-container">
+                        <div class="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full border-4 border-terminal-green overflow-hidden">
+                            <img src="./assets/img/daniel-avatar.jpg" 
+                                 alt="Daniel Acosta" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="mt-16 opacity-0" id="social-links">
+                <div class="text-lg mb-4">
+                    <span class="text-terminal-green">$ </span>
+                    <span class="text-yellow-400">connect --social-media</span>
+                </div>
+                <div class="flex flex-col md:flex-row gap-6 text-lg">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-terminal-green">> </span>
+                        <a href="https://www.instagram.com/daniel_acosta_c/" target="_blank" class="hover:text-terminal-green transition-colors">@instagram</a>
+                        <span class="text-terminal-green">> </span>
+                        <a href="https://www.linkedin.com/in/danielacostaceballos/"  target="_blank" class="hover:text-terminal-green transition-colors">/in/linkedin</a>
+                    </div>
+                    <div class="flex items-center space-x-4 md:ml-8">
+                        <span class="text-terminal-green">> </span>
+                        <a href="https://github.com/DacostaDesarrollo" target="_blank" class="hover:text-terminal-green transition-colors">github</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="min-h-screen py-20">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-8 md:mb-16">
+                <h2 class="text-4xl md:text-6xl font-bold text-terminal-green opacity-0 section-title">
+                    $ whoami --detailed
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="space-y-4 md:space-y-6 opacity-0 fade-in-left">
+                    <div class="text-xl md:text-2xl text-terminal-green">
+                        <span class="text-terminal-green">> </span>About me
+                    </div>
+                    <p class="text-base md:text-lg leading-relaxed">
+                        Soy un desarrollador Full Stack con más de 8 años de experiencia 
+                        creando soluciones digitales innovadoras. Mi pasión está en 
+                        transformar ideas complejas en aplicaciones web elegantes y funcionales.
+                    </p>
+                    <p class="text-base md:text-lg leading-relaxed">
+                        Especializado en tecnologías modernas como React, Node.js, Python, 
+                        y arquitecturas en la nube. Siempre buscando aprender nuevas 
+                        tecnologías y metodologías de desarrollo.
+                    </p>
+                </div>
+                
+                <div class="opacity-0 fade-in-right w-full">
+                    <div class="bg-terminal-gray rounded-lg p-4 md:p-6 border border-gray-700 overflow-hidden">
+                        <div class="text-terminal-green mb-4">
+                            <span class="text-terminal-green">$ </span>
+                            <span class="text-yellow-400">cat skills.json</span>
+                        </div>
+                        <div class="space-y-2 text-xs md:text-sm font-mono overflow-x-auto">
+                            <pre class="language-json rounded-lg m-0 min-w-0" style="background:#1e1e1e;">
+<code class="language-json whitespace-pre-wrap break-words">{
+  "frontend": ["JavaScript", "Angular", "TypeScript"],
+  "backend": ["Node.js", "PHP"],
+  "database": ["MySQL", "PostgreSQL"],
+  "cloud": ["Docker", "DigitalOcean"],
+  "tools": ["Git", "Linux", "CI/CD"]
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="min-h-screen py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-bold text-terminal-green opacity-0 section-title">
+                    $ ls projects/
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-h-[60vh] md:max-h-none overflow-y-auto md:overflow-visible scrollbar-thin scrollbar-track-terminal-bg scrollbar-thumb-terminal-green">
+                <!-- License Pass Project -->
+                <div class="bg-terminal-gray rounded-lg border border-gray-700 overflow-hidden opacity-0 project-card relative">
+                    <div class="relative overflow-hidden">
+                        <img src="./assets/img/project-license-pass.jpg" 
+                        alt="License Pass - Sistema de licencias"
+                        class="project-image"
+                        loading="lazy">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-terminal-green mb-3">License Pass</h3>
+                        <p class="text-gray-300 mb-4 text-sm leading-relaxed">Sistema de gestión de licencias digitales con interfaz moderna. Desarrollado con tecnologías web avanzadas y diseño UX optimizado.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-terminal-green/20 text-terminal-green px-2 py-1 rounded">JavaScript</span>
+                            <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">CSS3</span>
+                            <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">UI/UX</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://license-pass.netlify.app/" target="_blank" class="text-terminal-green hover:underline text-sm transition-colors">Ver</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sipesa Project -->
+                <div class="bg-terminal-gray rounded-lg border border-gray-700 overflow-hidden opacity-0 project-card relative">
+                    <div class="relative overflow-hidden">
+                        <img src="./assets/img/project-sipesa.jpg" 
+                        alt="Sipesa - Sitio web corporativo para empresa especializada en sistemas de pesaje industrial."
+                        class="project-image"
+                        loading="lazy">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-terminal-green mb-3">Sipesa Industrial</h3>
+                        <p class="text-gray-300 mb-4 text-sm leading-relaxed">Sitio web corporativo para empresa especializada en sistemas de pesaje industrial. Diseño responsivo y profesional.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">HTML5</span>
+                            <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">CSS3</span>
+                            <span class="text-xs bg-orange-500/20 text-orange-400 px-2 py-1 rounded">Responsive</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://sipesa.com.co/" target="_blank" class="text-terminal-green hover:underline text-sm transition-colors">Ver</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tu Logo Project -->
+                <div class="bg-terminal-gray rounded-lg border border-gray-700 overflow-hidden opacity-0 project-card relative">
+                    <div class="relative overflow-hidden">
+                        <img src="./assets/img/project-tulogo.jpg" 
+                        alt="tulogo - Plataforma e-commerce para servicios de impresión y productos promocionales. Interfaz intuitiva y catálogo interactivo."
+                        class="project-image"
+                        loading="lazy">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-terminal-green mb-3">Tu Logo</h3>
+                        <p class="text-gray-300 mb-4 text-sm leading-relaxed">Plataforma e-commerce para servicios de impresión y productos promocionales. Interfaz intuitiva y catálogo interactivo.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-terminal-green/20 text-terminal-green px-2 py-1 rounded">E-commerce</span>
+                            <span class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">JavaScript</span>
+                            <span class="text-xs bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded">Web Design</span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="https://tulogo.com.co/" target="_blank" class="text-terminal-green hover:underline text-sm transition-colors">ver</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="min-h-screen py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-bold text-terminal-green opacity-0 section-title">
+                    $ contact --me
+                </h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6 opacity-0 fade-in-left">
+                        <div class="text-2xl text-terminal-green">
+                            <span class="text-terminal-green">$ </span>
+                            <span class="text-yellow-400">echo "Hablemos"</span>
+                        </div>
+                        <p class="text-lg">
+                            ¿Tienes un proyecto en mente? ¿Quieres colaborar? 
+                            ¡No dudes en contactarme! Estoy siempre abierto a 
+                            nuevas oportunidades y desafíos.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-4">
+                                <span class="text-terminal-green">></span>
+                                <span>Email: <a href="mailto:dacostadesarrollo@gmail.com" class="text-terminal-green hover:underline" target="_blank">dacostadesarrollo@gmail.com</a></span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-terminal-green">></span>
+                                <span>LinkedIn: <a href="https://www.linkedin.com/in/danielacostaceballos/" class="text-terminal-green hover:underline" target="_blank">/in/danielacostaceballos</a></span>
+                            </div>
+                            <div class="0flex items-center space-x-4">
+                                <span class="text-terminal-green">></span>
+                                <span>GitHub: <a href="https://github.com/DacostaDesarrollo" class="text-terminal-green hover:underline" target="_blank">github.com/DacostaDesarrollo</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="opacity-0 fade-in-right">
+                        <form name="contact" method="POST" data-netlify="true" class="space-y-6" netlify>
+                            <input type="hidden" name="form-name" value="contact" />
+                            <div>
+                                <label class="block text-terminal-green mb-2">Nombre</label>
+                                <input name="name" type="text" required class="w-full bg-terminal-gray border border-gray-700 rounded px-4 py-3 text-white focus:border-terminal-green focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-terminal-green mb-2">Email</label>
+                                <input name="email" type="email" required class="w-full bg-terminal-gray border border-gray-700 rounded px-4 py-3 text-white focus:border-terminal-green focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-terminal-green mb-2">Mensaje</label>
+                                <textarea name="message" rows="5" required class="w-full bg-terminal-gray border border-gray-700 rounded px-4 py-3 text-white focus:border-terminal-green focus:outline-none"></textarea>
+                            </div>
+                            <button type="submit" class="bg-terminal-green text-black px-8 py-3 rounded hover:bg-green-400 transition-colors font-bold">
+                                Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-terminal-gray border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="text-terminal-green">
+                <span class="text-terminal-green">$ </span>
+                <span class="text-yellow-400">echo "© 2025 Daniel Acosta. Todos los derechos reservados."</span>
+            </div>
+        </div>
+    </footer>
+
+   
+    <script src="js/main.js"></script>
+    <!-- PrismJS core and JSON language -->
+    <script src="node_modules/prismjs/prism.js"></script>
+    <script src="node_modules/prismjs/components/prism-json.min.js"></script>
+</body>
+</html>
