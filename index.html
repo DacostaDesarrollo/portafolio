@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
      <!-- PrismJS CSS -->
-    <link href="node_modules/prismjs/themes/prism-tomorrow.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script>
         tailwind.config = {
@@ -379,12 +379,8 @@
                     </div>
                     
                     <div class="opacity-0 fade-in-right">
-                        <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success" class="space-y-6">
+                        <form id="contact-form" name="contact" method="POST" data-netlify="true" class="space-y-6" netlify>
                             <input type="hidden" name="form-name" value="contact" />
-                            <!-- Honeypot field for spam protection -->
-                            <p class="hidden">
-                                <label>No llenar este campo si eres humano: <input name="bot-field" /></label>
-                            </p>
                             <div>
                                 <label class="block text-terminal-green mb-2">Nombre</label>
                                 <input name="name" type="text" required class="w-full bg-terminal-gray border border-gray-700 rounded px-4 py-3 text-white focus:border-terminal-green focus:outline-none">
@@ -431,7 +427,16 @@
    
     <script src="js/main.js"></script>
     <!-- PrismJS core and JSON language -->
-    <script src="node_modules/prismjs/prism.js"></script>
-    <script src="node_modules/prismjs/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script>
+        // Asegurar que PrismJS procese el código después de la carga
+        document.addEventListener('DOMContentLoaded', function() {
+            // Re-procesar el código cuando sea necesario
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        });
+    </script>
 </body>
 </html>

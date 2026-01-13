@@ -418,6 +418,13 @@ function animateAboutSection() {
         { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 
         "-=0.5"
     );
+    
+    // Re-inicializar PrismJS para el código JSON
+    aboutTl.call(() => {
+        if (typeof Prism !== 'undefined') {
+            Prism.highlightAll();
+        }
+    }, null, "+=0.2");
 }
 
 // Animaciones específicas para Projects Section
