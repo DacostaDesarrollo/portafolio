@@ -371,7 +371,7 @@
                                 <span class="text-terminal-green">></span>
                                 <span>LinkedIn: <a href="https://www.linkedin.com/in/danielacostaceballos/" class="text-terminal-green hover:underline" target="_blank">/in/danielacostaceballos</a></span>
                             </div>
-                            <div class="0flex items-center space-x-4">
+                            <div class="flex items-center space-x-4">
                                 <span class="text-terminal-green">></span>
                                 <span>GitHub: <a href="https://github.com/DacostaDesarrollo" class="text-terminal-green hover:underline" target="_blank">github.com/DacostaDesarrollo</a></span>
                             </div>
@@ -379,8 +379,12 @@
                     </div>
                     
                     <div class="opacity-0 fade-in-right">
-                        <form name="contact" method="POST" data-netlify="true" class="space-y-6" netlify>
+                        <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/success" class="space-y-6">
                             <input type="hidden" name="form-name" value="contact" />
+                            <!-- Honeypot field for spam protection -->
+                            <p class="hidden">
+                                <label>No llenar este campo si eres humano: <input name="bot-field" /></label>
+                            </p>
                             <div>
                                 <label class="block text-terminal-green mb-2">Nombre</label>
                                 <input name="name" type="text" required class="w-full bg-terminal-gray border border-gray-700 rounded px-4 py-3 text-white focus:border-terminal-green focus:outline-none">
@@ -393,9 +397,20 @@
                                 <label class="block text-terminal-green mb-2">Mensaje</label>
                                 <textarea name="message" rows="5" required class="w-full bg-terminal-gray border border-gray-700 rounded px-4 py-3 text-white focus:border-terminal-green focus:outline-none"></textarea>
                             </div>
-                            <button type="submit" class="bg-terminal-green text-black px-8 py-3 rounded hover:bg-green-400 transition-colors font-bold">
+                            <button id="submit-btn" type="submit" class="bg-terminal-green text-black px-8 py-3 rounded hover:bg-green-400 transition-colors font-bold">
                                 Enviar Mensaje
                             </button>
+                            <div id="form-status" class="text-center mt-4 hidden">
+                                <div id="success-message" class="text-terminal-green font-semibold hidden">
+                                    ✅ ¡Mensaje enviado con éxito! Te responderé pronto.
+                                </div>
+                                <div id="error-message" class="text-red-400 font-semibold hidden">
+                                    ❌ Error al enviar el mensaje. Por favor, inténtalo de nuevo.
+                                </div>
+                                <div id="loading-message" class="text-yellow-400 font-semibold hidden">
+                                    ⏳ Enviando mensaje...
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

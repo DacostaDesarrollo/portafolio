@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupTypingEffects();
     setupInteractiveElements();
     setupFullPageScroll();
+    setupContactForm();
     showNavigationInstructions();
 });
 
@@ -669,6 +670,100 @@ function createMatrixEffect() {
 
     // Crear caracteres matrix periódicamente
     matrixInterval = setInterval(createMatrixChar, 100);
+}
+
+// Configurar formulario de contacto
+function setupContactForm() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formStatus = document.getElementById('form-status');
+    const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
+    const loadingMessage = document.getElementById('loading-message');
+    
+    if (!form) return;
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Mostrar mensaje de carga
+        formStatus.classList.remove('hidden');
+        successMessage.classList.add('hidden');
+        errorMessage.classList.add('hidden');
+        loadingMessage.classList.remove('hidden');
+        
+        // Deshabilitar botón
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        
+        try {
+            // Obtener datos del formulario
+            const formData = new FormData(form);
+            
+            // Enviar a Netlify
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            });
+            
+            if (response.ok) {
+                // Éxito
+                loadingMessage.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+                form.reset();
+                
+                // Animación de éxito
+                gsap.fromTo(successMessage, 
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+                );
+                
+                // Ocultar mensaje después de 5 segundos
+                setTimeout(() => {
+                    gsap.to(formStatus, {
+                        opacity: 0,
+                        duration: 0.3,
+                        onComplete: () => {
+                            formStatus.classList.add('hidden');
+                            gsap.set(formStatus, { opacity: 1 });
+                        }
+                    });
+                }, 5000);
+                
+            } else {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            
+        } catch (error) {
+            // Error
+            console.error('Error:', error);
+            loadingMessage.classList.add('hidden');
+            errorMessage.classList.remove('hidden');
+            
+            // Animación de error
+            gsap.fromTo(errorMessage, 
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+            );
+            
+            // Ocultar mensaje después de 5 segundos
+            setTimeout(() => {
+                gsap.to(formStatus, {
+                    opacity: 0,
+                    duration: 0.3,
+                    onComplete: () => {
+                        formStatus.classList.add('hidden');
+                        gsap.set(formStatus, { opacity: 1 });
+                    }
+                });
+            }, 5000);
+        }
+        
+        // Restaurar botón
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar Mensaje';
+    });
 }
 
 // Limpiar animaciones al cerrar
