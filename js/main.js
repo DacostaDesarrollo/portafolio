@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Función para inicializar las secciones
 function initializeSections() {
     sections = gsap.utils.toArray('section[id]');
-    console.log('Secciones encontradas:', sections.map(s => s.id));
     
     // Configurar cada sección para ocupar toda la pantalla
     sections.forEach((section, index) => {
@@ -82,8 +81,6 @@ function setupFullPageScroll() {
     
     // Crear indicadores de navegación
     createSectionIndicators();
-    
-    console.log('✅ Sistema de scroll por páginas configurado');
 }
 
 // Configurar eventos de scroll
@@ -196,7 +193,6 @@ function navigateToSection(index) {
         }
     });
     
-    console.log(`Navegando a sección ${index}: ${sections[index].id}`);
 }
 
 // Crear indicadores de navegación
@@ -503,7 +499,6 @@ function setupScrollAnimations() {
         y: 30
     });
     
-    console.log('✅ Animaciones de scroll configuradas para sistema de páginas');
 }
 
 // Navegación suave y activa
@@ -975,10 +970,7 @@ class AudioManager {
             
             // Configurar eventos
             this.setupAudioEvents();
-            
-            console.log('🔊 Sistema de audio inicializado');
         } catch (error) {
-            console.warn('⚠️ Error al inicializar audio:', error);
             this.fallbackToHTML5Audio();
         }
     }
@@ -1078,7 +1070,6 @@ class AudioManager {
 
     // Fallback a HTML5 Audio si Web Audio API no está disponible
     fallbackToHTML5Audio() {
-        console.log('🔄 Usando HTML5 Audio como fallback');
         
         // Crear elementos de audio dinámicamente
         this.sounds.click = () => this.playHTML5Sound(this.createHTML5Beep());
@@ -1172,14 +1163,12 @@ class AudioManager {
     // Toggle audio on/off
     toggle() {
         this.isEnabled = !this.isEnabled;
-        console.log(`🔊 Audio ${this.isEnabled ? 'activado' : 'desactivado'}`);
         return this.isEnabled;
     }
 
     // Cambiar volumen
     setVolume(volume) {
         this.volume = Math.max(0, Math.min(1, volume));
-        console.log(`🔊 Volumen: ${Math.round(this.volume * 100)}%`);
     }
 
     // Reproducir sonido personalizado
@@ -1301,11 +1290,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
-console.log('🎵 Sistema de audio cargado. Usa Ctrl+M para activar/desactivar.');
-console.log('🎵 Comandos disponibles:');
-console.log('   - audioManager.play("click") - Reproducir sonido de click');
-console.log('   - audioManager.play("hover") - Reproducir sonido de hover');
-console.log('   - audioManager.play("typing") - Reproducir sonido de typing');
-console.log('   - audioManager.toggle() - Activar/desactivar audio');
-console.log('   - audioManager.setVolume(0.5) - Cambiar volumen (0-1)');
